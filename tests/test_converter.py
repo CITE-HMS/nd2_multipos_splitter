@@ -160,8 +160,8 @@ def test_well_folders_groups_files(tmp_path: Path) -> None:
 
 
 def test_well_folders_bad_names_raise_before_writing(tmp_path: Path) -> None:
-    # "point name 1" has no "_<digits>" suffix -> must raise, write nothing
-    src = _sample("dims_p4z5t3c2y32x32.nd2")
+    # position names like "A01" have no "_<digits>" suffix -> must raise, write nothing
+    src = _sample("wellplate96_4_wells_without_jobs.nd2")
     with pytest.raises(ValueError, match="well folders"):
         list(conv.convert_nd2_to_ome_tiff(src, tmp_path, well_folders=True))
     assert list(tmp_path.rglob("*.ome.tif")) == []

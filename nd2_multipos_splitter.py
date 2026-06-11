@@ -111,7 +111,7 @@ def _get_positions(f: nd2.ND2File) -> list[Position]:
 def _get_position_name(positions: list[Position], index: int) -> str:
     """Return the position name, falling back to ``pos_<index>``."""
     if index < len(positions) and positions[index].name:
-        return positions[index].name
+        return positions[index].name.replace(" ", "_")
     return f"pos_{index:03d}"
 
 
