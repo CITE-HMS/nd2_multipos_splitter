@@ -26,7 +26,7 @@ needed.
 1. [Install `uv`](https://docs.astral.sh/uv/getting-started/installation/) if
    you don't have it yet.
 2. Download [`nd2_multipos_splitter.py`](https://github.com/CITE-HMS/nd2_multipos_splitter/releases/download/latest/nd2_multipos_splitter.py).
-3. From a terminal, in the folder containing the script, run:
+3. From a terminal, in the folder containing `nd2_multipos_splitter.py`, run:
 
    ```sh
    uv run nd2_multipos_splitter.py
