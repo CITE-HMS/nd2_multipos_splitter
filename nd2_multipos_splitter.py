@@ -5,7 +5,7 @@
 #     "dask==2026.3.0",
 #     "tifffile==2026.5.15",
 #     "ome-types==0.6.3",
-#     "pyside6==6.11.1",
+#     "pyqt6==6.11.0",
 #     "superqt==0.8.2",
 #     "tqdm==4.67.3",
 #     "rich==15.0.0",
@@ -34,8 +34,8 @@ import nd2
 import tifffile as tf
 from nd2.structures import Position, XYPosLoop
 from ome_types.model import OME, TiffData
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
     QCheckBox,
     QFileDialog,
     QHBoxLayout,
@@ -393,10 +393,32 @@ class FileDialog(QWidget):
         box.exec()
 
     def _on_run(self) -> None:
-        """Run conversion."""
+        """Validate inputs, prepare the UI, and start the conversion worker."""
+        if not self.file_le.text() or not self.dest_le.text():
+            return
+
+        input_file = Path(self.file_le.text())
+        dest = Path(self.dest_le.text())
+        if not input_file.exists() or not dest.exists():
+            QMessageBox.critical(
+                self, "Conversion failed", "`Input File` or `Output Directory` do not exist."
+            )
+            return
+
+        with nd2.ND2File(input_file) as f:
+            num_p = f.sizes.get("P", 1)
+
+        self._enable(False)
+        self.progress_bar.setRange(0, num_p)
+        self.status_lbl.setText(f"Running... ({num_p} files left).")
+
         self._stop_event.clear()
         create_worker(
             self._split_nd2,
+            input_file,
+            dest,
+            self.well_folder_cbox.isChecked(),
+            self.workers_spin.value(),
             _start_thread=True,
             _connect={
                 "yielded": self._update_progress_bar,
@@ -405,28 +427,15 @@ class FileDialog(QWidget):
             },
         )
 
-    def _split_nd2(self) -> Iterator[tuple[int, int]]:
-        """Validate inputs and delegate to `convert_nd2_to_ome_tiff`."""
-        if not self.file_le.text() or not self.dest_le.text():
-            return
-
-        input_file = Path(self.file_le.text())
-        dest = Path(self.dest_le.text())
-        if not input_file.exists() or not dest.exists():
-            raise ValueError("`Input File` or `Output Directory` do not exist.")
-
-        self._enable(False)
-
-        with nd2.ND2File(input_file) as f:
-            num_p = f.sizes.get("P", 1)
-        self.progress_bar.setRange(0, num_p)
-        self.status_lbl.setText(f"Running... ({num_p} files left).")
-
+    def _split_nd2(
+        self, input_file: Path, dest: Path, well_folders: bool, workers: int
+    ) -> Iterator[tuple[int, int]]:
+        """Delegate to `convert_nd2_to_ome_tiff`."""
         yield from convert_nd2_to_ome_tiff(
             input_file,
             dest,
-            well_folders=self.well_folder_cbox.isChecked(),
-            workers=self.workers_spin.value(),
+            well_folders=well_folders,
+            workers=workers,
             stop_event=self._stop_event,
             test=self._test,
         )
@@ -450,7 +459,7 @@ class FileDialog(QWidget):
 if __name__ == "__main__":
     import sys
 
-    from PySide6.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
     wdg = FileDialog(test=False)
