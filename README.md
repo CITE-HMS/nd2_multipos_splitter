@@ -1,6 +1,6 @@
 # nd2 Multiposition Splitter
 
-Download the **`nd2_multipos_splitter.py`** file: **RIGHT-CLICK** [here](https://raw.githubusercontent.com/CITE-HMS/nd2_multipos_splitter/main/nd2_multipos_splitter.py) and choose "Save Link As..."/"Download Linked File As...".
+Download the script: [**`nd2_multipos_splitter.py`**](https://github.com/CITE-HMS/nd2_multipos_splitter/releases/download/latest/nd2_multipos_splitter.py).
 
 A small GUI tool that splits a multiposition `.nd2` file into one
 **OME-TIFF** per stage position. It works with plain XY position lists,
@@ -13,9 +13,9 @@ plate/well experiments, and single-position files.
 [`pyrunner`](https://github.com/fdrgsp/pyrunner) lets you run a `uv` Python
 script by simply double-clicking it.
 
-1. Download and install `pyrunner` from [here]([`pyrunner`](https://github.com/fdrgsp/pyrunner)).
-2. Download **`nd2_multipos_splitter.py`** (RIGHT-CLICK [here](https://raw.githubusercontent.com/CITE-HMS/nd2_multipos_splitter/main/nd2_multipos_splitter.py) and choose "Save Link As..."/"Download Linked File As...").
-3. Double-click on the `pyrunner` icon and select `nd2_multipos_splitter.py` to run it. If you system prevents you from running `pyrunner`, follow the instructions [here](https://github.com/fdrgsp/pyrunner#platform-notes) to allow it.
+1. Download and install [`pyrunner`](https://github.com/fdrgsp/pyrunner).
+2. Download [**`nd2_multipos_splitter.py`**](https://github.com/CITE-HMS/nd2_multipos_splitter/releases/download/latest/nd2_multipos_splitter.py).
+3. Double-click on the `pyrunner` icon and select `nd2_multipos_splitter.py` to run it. If you system prevents you from running `pyrunner`, follow the [`pyrunner` platform notes](https://github.com/fdrgsp/pyrunner#platform-notes) to allow it.
 
 ### Option 2: with `uv`
 
@@ -25,7 +25,7 @@ needed.
 
 1. [Install `uv`](https://docs.astral.sh/uv/getting-started/installation/) if
    you don't have it yet.
-2. Download [`nd2_multipos_splitter.py`](https://raw.githubusercontent.com/CITE-HMS/nd2_multipos_splitter/main/nd2_multipos_splitter.py).
+2. Download [`nd2_multipos_splitter.py`](https://github.com/CITE-HMS/nd2_multipos_splitter/releases/download/latest/nd2_multipos_splitter.py).
 3. From a terminal, in the folder containing the script, run:
 
    ```sh
