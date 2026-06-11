@@ -1,7 +1,6 @@
 # nd2 Multiposition Splitter
 
-Download the [**`nd2_multipos_splitter.py`**](https://raw.githubusercontent.com/CITE-HMS/nd2_multipos_splitter/main/nd2_multipos_splitter.py) file: right-click the link and choose "Save Link As..." (browsers open `.py`
-files instead of downloading them when clicked directly).
+Download the **`nd2_multipos_splitter.py`** file: right-click [here](https://raw.githubusercontent.com/CITE-HMS/nd2_multipos_splitter/main/nd2_multipos_splitter.py) and choose "Save Link As...".
 
 A small GUI tool that splits a multiposition `.nd2` file into one
 **OME-TIFF** per stage position. It works with plain XY position lists,
